@@ -1,14 +1,9 @@
 import math
 
-def get_link_v(v, D):
-    for i, weight in enumerate(D[v]):
-        if weight > 0:
-            yield i
-
 
 def arg_min(T, S):
     amin = -1
-    m = max(T)  # максимальное значение в T (для упрощения алгоритма)
+    m = math.inf  # максимальное значение
     for i, t in enumerate(T):
         if t < m and i not in S:
             m = t
@@ -17,12 +12,12 @@ def arg_min(T, S):
     return amin
 
 
-D = ((0, 3, 1, 3, 0, 0),
-     (3, 0, 4, 0, 0, 0),
-     (1, 4, 0, 0, 7, 5),
-     (3, 0, 0, 0, 0, 2),
-     (0, 0, 7, 0, 0, 4),
-     (0, 0, 5, 2, 4, 0))
+D = ((0, 3, 1, 3, math.inf, math.inf),
+     (3, 0, 4, math.inf, math.inf, math.inf),
+     (1, 4, 0, math.inf, 7, 5),
+     (3, math.inf, math.inf, 0, math.inf, 2),
+     (math.inf, math.inf, 7, math.inf, 0, 4),
+     (math.inf, math.inf, 5, 2, 4, 0))
 
 N = len(D)  # число вершин в графе
 T = [math.inf]*N   # последняя строка таблицы
@@ -33,9 +28,9 @@ T[v] = 0    # нулевой вес для стартовой вершины
 M = [0]*N   # оптимальные связи между вершинами
 
 while v != -1:          # цикл, пока не просмотрим все вершины
-    for j in get_link_v(v, D):   # перебираем все связанные вершины с вершиной v
+    for j, dw in enumerate(D[v]):   # перебираем все связанные вершины с вершиной v
         if j not in S:           # если вершина еще не просмотрена
-            w = T[v] + D[v][j]
+            w = T[v] + dw
             if w < T[j]:
                 T[j] = w
                 M[j] = v        # связываем вершину j с вершиной v
@@ -44,7 +39,7 @@ while v != -1:          # цикл, пока не просмотрим все в
     if v >= 0:                    # выбрана очередная вершина
         S.add(v)                 # добавляем новую вершину в рассмотрение
 
-print(T, M, sep="\n")
+#print(T, M, sep="\n")
 
 # формирование оптимального маршрута:
 start = 0
