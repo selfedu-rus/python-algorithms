@@ -21,11 +21,11 @@ while i < N and j < M:
 
 c += a[i:] + b[j:]
 
-if i < N:
-    for k in range(i, N):
-        c.append(a[k])
-elif j < M:
-    for k in range(j, M):
-        c.append(b[k])
+# if i < N:
+#     for k in range(i, N):
+#         c.append(a[k])
+# elif j < M:
+#     for k in range(j, M):
+#         c.append(b[k])
 
 print(c)
