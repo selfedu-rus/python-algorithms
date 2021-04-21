@@ -37,5 +37,5 @@ while i < n:
         else:
             i += 1
 
-if i == n:
+if i == n and j != m:
     print("образ не найден")
